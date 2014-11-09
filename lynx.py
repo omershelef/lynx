@@ -51,7 +51,7 @@ class Decoder(object):
         return result
 
     def _scan_part(self):
-        match = re.compile("[{}:]").search(self.str[self.pos:])
+        match = re.compile("[{}:#]").search(self.str[self.pos:])
         name = self.str[self.pos:self.pos + match.start()].strip()
         c = match.group()
         self.pos += match.end()
@@ -62,6 +62,10 @@ class Decoder(object):
             return None
         elif (c == ":"):
             return self._scan_field(name)
+        elif (c == "#"):
+            self._scan_comment()
+            return self._scan_part()
+
 
     def _scan_section(self, name):
         fields = {}
@@ -104,3 +108,6 @@ class Decoder(object):
         self.pos += match.end()
         return value.split(",")
 
+    def _scan_comment(self):
+        match = re.compile("\n").search(self.str[self.pos:])
+        self.pos += match.end()
