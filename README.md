@@ -66,3 +66,12 @@ Load the configuration:
 ```
 
 
+
+## Features
+
+Features include:
+* Sections
+* Sub sections
+* String fields
+* Lists
+
