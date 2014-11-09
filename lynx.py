@@ -106,7 +106,7 @@ class Decoder(object):
         match = re.compile("\]").search(self.str[self.pos:])
         value = self.str[self.pos:self.pos + match.start()].strip()
         self.pos += match.end()
-        return value.split(",")
+        return [val.strip() for val in value.split(",")]
 
     def _scan_comment(self):
         match = re.compile("\n").search(self.str[self.pos:])
