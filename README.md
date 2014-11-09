@@ -7,7 +7,7 @@ Simple python configuration library and format. The format is very similar to YA
 --------------
 
 Install the ``lynx`` package with `pip
-<https://pypi.python.org/pypi/lynx>`_::
+<https://pypi.python.org/pypi/lynx>`:
 
     pip install lynx
 
