@@ -4,17 +4,17 @@ lynx
 Simple python configuration library and format. The format is very similar to YAML with the enhancment of sections.
 
 ##Installation
---------------
 
-Install the ``lynx`` package with `pip
-<https://pypi.python.org/pypi/lynx>`:
+Install the ``lynx`` package with [pip](<https://pypi.python.org/pypi/lynx>):
 
     pip install lynx
 
 
 
+
+
 ##Example use
----------------
+
 Configuration example:
 ```
 # section example
