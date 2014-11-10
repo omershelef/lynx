@@ -1,1 +1,1 @@
-from lynx import *
+from .lynx import *
