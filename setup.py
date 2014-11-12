@@ -20,5 +20,5 @@ setup(name='lynx',
         where='.'
       ),
       tests_require=['pytest'],
-      test_suite="tests.test_lynx.run_tests"
+      test_suite="tests.run_tests"
       )
