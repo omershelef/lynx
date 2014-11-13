@@ -1,5 +1,4 @@
-import format
-import pdb
+from lynx import format
 
 WRONG_VALUE_EX = "Failed to encode field %s. type %s is not supported"
 
@@ -18,7 +17,7 @@ def _encode_section(section, indention):
 
 def _encode_field(name, value, indention):
     # encode as list
-    if hasattr(value, "__iter__"):
+    if hasattr(value, "__iter__") and not isinstance(value, str):
        value = "[%s]" % ", ".join(value)
 
     # if not str or list, raise exception

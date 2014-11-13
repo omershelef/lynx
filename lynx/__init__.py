@@ -1,6 +1,7 @@
-import encoder
-import decoder
-from format import *
+from lynx import encoder
+from lynx import decoder
+from lynx.format import *
+
 
 __version__ = '0.2.5'
 __all__ = [

@@ -34,4 +34,3 @@ def test_encode_lists():
     r_fields = config[0].fields()
     assert(len(r_fields) == 1)
     assert(r_fields["myfield"] == ["hello", "world", "hello"])
-

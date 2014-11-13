@@ -1,5 +1,5 @@
 import re
-import format
+from lynx import format
 
 class Decoder(object):
     def decode(self, str):
