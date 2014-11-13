@@ -1,4 +1,5 @@
 import re
+import format
 
 class Decoder(object):
     def decode(self, str):
@@ -33,12 +34,12 @@ class Decoder(object):
 
             if result is None:
                 break
-            elif isinstance(result, Section):
+            elif isinstance(result, format.Section):
                 sections.append(result)
             else:
                 fields.update(result)
 
-        return Section(name, sections, fields)
+        return format.Section(name, sections, fields)
 
 
     def _scan_field(self, name):
