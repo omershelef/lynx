@@ -74,7 +74,6 @@ Features include:
 * Sub sections
 * Lists
 * Load & dump
-
 * Types:
     * Strings
     * Integers
