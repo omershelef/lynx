@@ -46,25 +46,25 @@ class Decoder(object):
         match = re.compile("^\s*[|\[]").search(self.str[self.pos:])
 
         if match == None:
-            return {name: self._scan_string()}
+            return {name: self._scan_field_value()}
 
         self.pos += match.end()
 
         if match.group().strip() == "[":
             return {name: self._scan_list()}
 
-    def _scan_string(self):
+    def _scan_field_value(self):
         match = re.compile("\n").search(self.str[self.pos:])
         value = self.str[self.pos:self.pos + match.start()].strip()
         self.pos += match.end()
-        return value
+        return self._cast(value)
 
 
     def _scan_list(self):
         match = re.compile("\]").search(self.str[self.pos:])
         value = self.str[self.pos:self.pos + match.start()].strip()
         self.pos += match.end()
-        return [val.strip() for val in value.split(",")]
+        return [self._cast(val.strip()) for val in value.split(",")]
 
     def _skip_comments(self):
         match = re.compile("^\s*#").search(self.str[self.pos:])
@@ -72,3 +72,15 @@ class Decoder(object):
             self.pos += match.end()
             match = re.compile("\n").search(self.str[self.pos:])
             self.pos += match.end()
+
+    def _cast(self, value):
+        """
+        Try to cast value to int or float if possible
+        :param value: value to cast
+        :return: casted value
+        """
+        if value.isdigit():
+            value = int(value)
+        elif re.compile("^\d+\.\d+").match(value):
+            value = float(value)
+        return value

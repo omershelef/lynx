@@ -27,10 +27,20 @@ def test_encode_fields():
     assert(r_fields["field2"] == "hello#$%")
 
 def test_encode_lists():
-    fields = {"myfield": ["hello", "world", "hello"]}
+    fields = {"myfield": ["hello", "world", 75, 88.32]}
     section = lynx.Section("mysection", [], fields)
     result = lynx.dumps(section)
     config = lynx.loads(result)
     r_fields = config[0].fields()
     assert(len(r_fields) == 1)
-    assert(r_fields["myfield"] == ["hello", "world", "hello"])
+    assert(r_fields["myfield"] == ["hello", "world", 75, 88.32])
+
+def test_encode_nums():
+    fields = {"myfield": 52, "field2": 37.68}
+    section = lynx.Section("mysection", [], fields)
+    result = lynx.dumps(section)
+    config = lynx.loads(result)
+    r_fields = config[0].fields()
+    assert(len(r_fields) == 2)
+    assert(r_fields["myfield"] == 52)
+    assert(r_fields["field2"] == 37.68)

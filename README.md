@@ -56,7 +56,7 @@ Load the configuration:
 >>> config[0].name()
 'section'
 >>> config[0].fields()
-{'field2': 'Another field value', 'field1': 'myfield1 value', 'mylist': ['5', ' mystr', ' value', ' 8']}
+{'field2': 'Another field value', 'field1': 'myfield1 value', 'mylist': [5, 'mystr', 'value', 8]}
 
 # Get sub sections
 >>> config[1].sub_sections()
@@ -72,6 +72,10 @@ Load the configuration:
 Features include:
 * Sections
 * Sub sections
-* String fields
 * Lists
 * Load & dump
+
+* Types:
+    * Strings
+    * Integers
+    * Floats

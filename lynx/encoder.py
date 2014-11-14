@@ -1,7 +1,5 @@
 from lynx import format
 
-WRONG_VALUE_EX = "Failed to encode field %s. type %s is not supported"
-
 def encode(sections):
     # support one or multiple sections
     if isinstance(sections, format.Section):
@@ -18,10 +16,8 @@ def _encode_section(section, indention):
 def _encode_field(name, value, indention):
     # encode as list
     if hasattr(value, "__iter__") and not isinstance(value, str):
-       value = "[%s]" % ", ".join(value)
-
-    # if not str or list, raise exception
-    elif not isinstance(value, str):
-        raise TypeError(WRONG_VALUE_EX % (name, type(value)))
+       value = "[%s]" % ", ".join(map(str, value))
+    else:
+        value = str(value)
 
     return "%s%s: %s\n" % ("\t" * indention, name, value)

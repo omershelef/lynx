@@ -7,6 +7,7 @@ def load(filename):
     with open(path, "r") as fp:
         return lynx.load(fp)
 
+
 def test_decode_sections():
     config = load("sections.conf")
     assert(config[0].name() == config[1].name() == "section")
@@ -27,7 +28,15 @@ def test_decode_lists():
     config = load("lists.conf")
     fields = config[0].fields()
     assert(len(fields) == 2)
-    assert(fields["my list"] == ["1" , "myvalue", "3", "5"])
+    assert(fields["my list"] == [1 , "myvalue", 3, 57.874])
     assert(fields["list2"] == ["%$3", "!$^", "value2"])
+
+
+def test_decode_nums():
+    config = load("nums.conf")
+    fields = config[0].fields()
+    assert(len(fields) == 2)
+    assert(fields["myint"] == 57)
+    assert(fields["myfloat"] == 89.4563)
 
 
