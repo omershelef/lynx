@@ -81,6 +81,7 @@ Features include:
 * Sections
 * Sub sections
 * Lists
+* Multiline fields
 * Load & dump
 * Types:
     * Strings

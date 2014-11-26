@@ -3,7 +3,7 @@ from lynx import decoder
 from lynx.format import *
 
 
-__version__ = '0.2.6'
+__version__ = '0.3'
 __all__ = [
     'load', 'loads', 'dump', 'dumps', 'Section'
 ]
