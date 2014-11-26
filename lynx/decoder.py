@@ -1,6 +1,7 @@
 import re
 from lynx import format
 
+
 class Decoder(object):
     def decode(self, str):
         self.str = str.strip()
@@ -23,6 +24,8 @@ class Decoder(object):
             return None
         elif (c == ":"):
             return self._scan_field(name)
+
+        # TODO raise exception when match is None
 
 
     def _scan_section(self, name):
@@ -52,13 +55,16 @@ class Decoder(object):
 
         if match.group().strip() == "[":
             return {name: self._scan_list()}
+        elif match.group().strip() == "|":
+            scanner = MultilineScanner(self.str, self.pos)
+            self.pos, multiline_str = scanner.scan()
+            return {name: multiline_str}
 
     def _scan_field_value(self):
         match = re.compile("\n").search(self.str[self.pos:])
         value = self.str[self.pos:self.pos + match.start()].strip()
         self.pos += match.end()
         return self._cast(value)
-
 
     def _scan_list(self):
         match = re.compile("\]").search(self.str[self.pos:])
@@ -84,3 +90,51 @@ class Decoder(object):
         elif re.compile("^\d+\.\d+").match(value):
             value = float(value)
         return value
+
+
+
+class MultilineScanner(object):
+
+    def __init__(self, str, start_position):
+        self._str = str
+        self._pos = start_position
+
+        # return to the start of the line
+        temp_pos = self._pos - 1
+        while temp_pos > 0:
+            if self._str[temp_pos] == '\n':
+                break
+            temp_pos -= 1
+
+        self._indent_level = self._get_indent_level(self._str[temp_pos + 1:self._pos])
+
+    def scan(self):
+        current_str = ""
+        lines = self._str[self._pos:].split('\n')
+        self._pos += len(lines[0]) + 1
+        first_indent_level = None
+        for line in lines[1:]:
+            indent = self._get_indent_level(line)
+
+            # empty lines
+            if indent is None:
+                current_str += line + "\n"
+                self._pos += len(line) + 1
+                continue
+
+            if first_indent_level is None:
+                first_indent_level = indent
+
+            if indent <= self._indent_level:
+                return (self._pos, current_str.strip())
+
+            self._pos += len(line) + 1
+            current_str += line[first_indent_level:] + "\n"
+
+        return (self._pos, current_str.strip())
+
+    def _get_indent_level(self, line):
+        match = re.compile("\S").search(line)
+        if match is None:
+            return None
+        return match.end() - 1

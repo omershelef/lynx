@@ -40,3 +40,19 @@ def test_decode_nums():
     assert(fields["myfloat"] == 89.4563)
 
 
+def test_decode_multiline():
+    config = load("multiline.conf")
+    fields = config[0].fields()
+    assert(len(fields) == 3)
+    assert(fields["myfield"] == "mytest")
+    assert(fields["mymulti"] == """
+hello world
+bla bla bla
+
+bla bla
+
+hello world
+   how are u?
+       are u ok?
+    """.strip())
+    assert(fields["myfield2"] == "mytest2")

@@ -38,7 +38,15 @@ section2 {
 
 	# sections can have same name.	
 	my_section {
-		Library description: Python configuration library
+	    # multiline fields
+		Library description:|
+		    Lynx is a python
+		    Configuration library
+		    supporting many features
+		    including multiline fields!$%$!%#@
+		    Yay!
+
+		myfloat: 5.3
 	}
 }
 
