@@ -16,3 +16,6 @@ class Section(object):
         """ Return a dictionary of section's fields """
         return self._fields
 
+
+class WrongFormatException(Exception):
+    pass

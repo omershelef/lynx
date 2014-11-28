@@ -14,6 +14,10 @@ class Decoder(object):
     def _scan_part(self):
         self._skip_comments()
         match = re.compile("[{}:]").search(self.str[self.pos:])
+
+        if match is None:
+            raise format.WrongFormatException("Expected ':' or '{'. position: %s" % self.pos)
+
         name = self.str[self.pos:self.pos + match.start()].strip()
         c = match.group()
         self.pos += match.end()
@@ -25,7 +29,6 @@ class Decoder(object):
         elif (c == ":"):
             return self._scan_field(name)
 
-        # TODO raise exception when match is None
 
 
     def _scan_section(self, name):
@@ -68,6 +71,10 @@ class Decoder(object):
 
     def _scan_list(self):
         match = re.compile("\]").search(self.str[self.pos:])
+
+        if match is None:
+            raise format.WrongFormatException("Expected ']'. position: %s" % self.pos)
+
         value = self.str[self.pos:self.pos + match.start()].strip()
         self.pos += match.end()
         return [self._cast(val.strip()) for val in value.split(",")]

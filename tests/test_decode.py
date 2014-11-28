@@ -1,6 +1,7 @@
 import os
 import lynx
-
+from lynx import format
+import pytest
 
 def load(filename):
     path = os.path.join(os.path.dirname(__file__), "config_files", filename)
@@ -56,3 +57,13 @@ hello world
        are u ok?
     """.strip())
     assert(fields["myfield2"] == "mytest2")
+
+
+def test_decode_wrong_format():
+    with pytest.raises(format.WrongFormatException) as excinfo:
+        config = load("wrong_format.conf")
+
+def test_decode_wrong_list():
+    with pytest.raises(format.WrongFormatException) as excinfo:
+        config = load("wrong_list.conf")
+

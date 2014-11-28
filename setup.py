@@ -9,7 +9,7 @@ f.close()
 
 
 setup(name='lynx',
-      version='0.3',
+      version='0.3.1',
       description = "Python configuration library",
       license="The MIT License (MIT)",
       url = "https://github.com/omershelef/lynx/",
