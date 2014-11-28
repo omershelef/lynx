@@ -41,10 +41,8 @@ section2 {
 	    # multiline fields
 		Library description:|
 		    Lynx is a python
-		    Configuration library
-		    supporting many features
-		    including multiline fields!$%$!%#@
-		    Yay!
+		    Configuration library.
+		    This is multiline example.
 
 		myfloat: 5.3
 	}
